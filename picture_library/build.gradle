@@ -1,0 +1,43 @@
+apply plugin: 'com.android.library'
+apply from:'maven-release-aar.gradle'
+android {
+    compileSdkVersion qyconfig.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion qyconfig.minSdkVersion
+        targetSdkVersion qyconfig.targetSdkVersion
+        versionCode qyconfig.versionCode
+        versionName qyconfig.versionName
+        multiDexEnabled true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    //强制让所有依赖保持一致
+    configurations.all {
+        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+            def requested = details.requested
+            if (requested.group == 'com.android.support') {
+                if (!requested.name.startsWith("multidex")) {
+                    details.useVersion "${qyconfig.androidSupportVersion}"
+                }
+            }
+        }
+    }
+}
+
+dependencies {
+    implementation "com.android.support:appcompat-v7:${qyconfig.androidSupportVersion}"
+    implementation "com.android.support:recyclerview-v7:${qyconfig.androidSupportVersion}"
+    implementation "com.github.bumptech.glide:glide:${qyconfig.glide}"
+    implementation "io.reactivex.rxjava2:rxjava:${qyconfig.rxjava}"
+    implementation "io.reactivex.rxjava2:rxandroid:${qyconfig.rxandroid}"
+    //视频播放器
+    implementation "com.shuyu:GSYVideoPlayer:${qyconfig.gsyvideoplayer}"
+}
+
