@@ -38,6 +38,8 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxjava:${qyconfig.rxjava}"
     implementation "io.reactivex.rxjava2:rxandroid:${qyconfig.rxandroid}"
     //视频播放器
-    implementation "com.shuyu:GSYVideoPlayer:${qyconfig.gsyvideoplayer}"
+    //implementation "com.shuyu:GSYVideoPlayer:${qyconfig.gsyvideoplayer}"
+    implementation "com.shuyu:gsyVideoPlayer-java:${qyconfig.gsyvideoplayer}"
+    implementation "com.shuyu:gsyVideoPlayer-armv7a:${qyconfig.gsyvideoplayer}"
 }
 
